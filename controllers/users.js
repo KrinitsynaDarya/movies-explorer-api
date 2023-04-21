@@ -25,7 +25,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Успешная авторизация' });
+        .send({ message: 'Успешная авторизация', token: JWT_SECRET });
     })
     .catch(next);
 };

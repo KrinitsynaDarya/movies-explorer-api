@@ -1,21 +1,24 @@
-require('dotenv').config();
+// require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+
+const { DB_URL, PORT } = require('./config');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 
 // Слушаем 3000 порт
-const { PORT = 3000 } = process.env;
+// const { PORT = 3000 } = process.env;
 
 const app = express();
 app.use(cors);
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(/* 'mongodb://127.0.0.1:27017/bitfilmsdb' */DB_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   autoIndex: true,

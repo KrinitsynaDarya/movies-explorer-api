@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/KrinitsynaDarya/movies-explorer-api#readme",
   "devDependencies": {
-    "eslint": "^8.38.0",
+    "eslint": "8.38.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.21"

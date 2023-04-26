@@ -1,6 +1,5 @@
-// require('dotenv').config();
-
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
@@ -11,6 +10,8 @@ const cors = require('./middlewares/cors');
 const { limiter } = require('./middlewares/rate-limiter');
 
 const app = express();
+app.use(helmet());
+
 app.use(cors);
 app.use(limiter);
 

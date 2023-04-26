@@ -18,7 +18,7 @@ const signupValidator = celebrate({
 
 const deleteMovieByIdValidator = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().length(24).hex().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
@@ -33,7 +33,7 @@ const addMovieValidator = celebrate({
     trailerLink: Joi.string().required().uri(),
     thumbnail: Joi.string().required().uri(),
     owner: Joi.string().length(24).hex(),
-    movieId: Joi.number.required(),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),

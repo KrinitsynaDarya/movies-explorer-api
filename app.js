@@ -4,7 +4,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-
 const { DB_URL, PORT } = require('./config');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -13,7 +12,9 @@ const limiter = require('./middlewares/rate-limiter');
 
 const app = express();
 app.use(cors);
+
 app.use(limiter);
+
 app.use(express.json());
 app.use(cookieParser());
 

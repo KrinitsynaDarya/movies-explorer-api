@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
-// const { JWT_SECRET = 'dev-secret' } = process.env;
 const { JWT_SECRET } = require('../config');
 // импортируем модель
 const User = require('../models/user');
@@ -26,7 +25,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Успешная авторизация', JWT_SECRET });
+        .send({ message: 'Успешная авторизация' });
     })
     .catch(next);
 };

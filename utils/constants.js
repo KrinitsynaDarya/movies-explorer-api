@@ -20,6 +20,9 @@ const MSG_USER_UPD_BAD_REQ = 'Переданы некорректные данн
 const MSG_AUTH_UNAUTH_ERR = 'Необходима авторизация';
 const MSG_PAGE_NOT_FOUND = 'Запрашиваемая страница не найдена';
 const MSG_ERR_DEFAULT = 'На сервере произошла ошибка';
+const MSG_INVALID_URL = 'Невалидный URL';
+const MSG_INVALID_EMAIL = 'Невалидный email';
+const MSG_AUTH_EXIT = 'Выход';
 
 module.exports = {
   HTTP_STATUS_CREATED,
@@ -41,4 +44,7 @@ module.exports = {
   MSG_AUTH_UNAUTH_ERR,
   MSG_PAGE_NOT_FOUND,
   MSG_ERR_DEFAULT,
+  MSG_INVALID_URL,
+  MSG_INVALID_EMAIL,
+  MSG_AUTH_EXIT,
 };

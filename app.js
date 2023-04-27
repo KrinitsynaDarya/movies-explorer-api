@@ -14,7 +14,6 @@ const app = express();
 app.use(helmet());
 
 app.use(cors);
-app.use(limiter);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,6 +25,7 @@ mongoose.connect(/* 'mongodb://127.0.0.1:27017/bitfilmsdb' */DB_URL, {
 });
 
 app.use(requestLogger); // подключаем логгер запросов
+app.use(limiter);
 app.use(routes);
 app.use(errorLogger); // подключаем логгер ошибок
 

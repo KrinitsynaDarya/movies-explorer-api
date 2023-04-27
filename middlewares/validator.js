@@ -32,7 +32,6 @@ const addMovieValidator = celebrate({
     image: Joi.string().required().uri(),
     trailerLink: Joi.string().required().uri(),
     thumbnail: Joi.string().required().uri(),
-    owner: Joi.string().length(24).hex(),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
@@ -42,7 +41,6 @@ const addMovieValidator = celebrate({
 const updateUserValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
     name: Joi.string().min(2).max(30).required(),
   }),
 });

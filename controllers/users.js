@@ -10,6 +10,14 @@ const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const ConflictError = require('../errors/conflict-err');
 
+const {
+  MSG_AUTH_SUCCESS,
+  MSG_USER_EXISTS,
+  MSG_USER_NOT_FOUND,
+  MSG_USER_CAST_ERR,
+  MSG_USER_UPD_BAD_REQ,
+} = require('../utils/constants');
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
@@ -25,7 +33,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Успешная авторизация' });
+        .send({ message: MSG_AUTH_SUCCESS });
     })
     .catch(next);
 };
@@ -48,7 +56,7 @@ module.exports.createUser = (req, res, next) => {
     // данные не записались, вернём ошибку
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError('Пользователь с данным email уже существует'));
+        next(new ConflictError(MSG_USER_EXISTS));
       } else if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError(err.message));
       } else {
@@ -63,9 +71,9 @@ const getUser = (id, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        next(new NotFoundError('Пользователь по указанному _id не найден'));
+        next(new NotFoundError(MSG_USER_NOT_FOUND));
       } else if (err instanceof mongoose.Error.CastError) {
-        next(new BadRequestError('Передан некорректный _id при поиске пользователя'));
+        next(new BadRequestError(MSG_USER_CAST_ERR));
       } else {
         next(err);
       }
@@ -85,10 +93,12 @@ const updateUser = (userProps, req, res, next) => {
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
-      if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        next(new NotFoundError('Пользователь по указанному _id не найден'));
+      if (err.code === 11000) {
+        next(new ConflictError(MSG_USER_EXISTS));
+      } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
+        next(new NotFoundError(MSG_USER_NOT_FOUND));
       } else if (err instanceof mongoose.Error.ValidationError) {
-        next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
+        next(new BadRequestError(MSG_USER_UPD_BAD_REQ));
       } else {
         next(err);
       }
@@ -96,9 +106,9 @@ const updateUser = (userProps, req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
   // обновим имя найденного по _id пользователя
-  updateUser({ name, about }, req, res, next);
+  updateUser({ name, email }, req, res, next);
 };
 
 module.exports.cookieCheck = (req, res) => {

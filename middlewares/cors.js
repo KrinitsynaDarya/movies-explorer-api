@@ -1,7 +1,7 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://mestoapp.krinitsyna.nomoredomains.work',
-  'http://mestoapp.krinitsyna.nomoredomains.work',
+  'https://movies.krinitsyna.nomoredomains.monster',
+  'http://movies.krinitsyna.nomoredomains.monster',
   'https://localhost:3000',
   'http://localhost:3000',
 ];
